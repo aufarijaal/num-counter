@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Number Counter</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+</head>
+<body>
+  <div class="top">
+    <span class="title">Number Counter</span>
+    <span class="help">"<strong> 0 </strong>" to reset, "<strong> - </strong>" to decrease, "<strong> = </strong>" to add</span>
+  </div>
+  <div class="container">
+    <div class="counter-container">
+      <button class="minus">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 14H4V10H20V14Z" fill="white"/>
+        </svg>        
+      </button>
+      <input class="num-count" maxlength="4" readonly>
+      <button class="plus">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z" fill="white"/>
+        </svg>        
+      </button>
+    </div>
+    <div class="options">
+      <button type="button" class="reset">Reset</button>
+    </div>
+  </div>
+  <div class="footer">
+    <span >Made with 💚 by <a href="https://www.github.com/aufarijaal">aufarijaal</a></span>
+  </div>
+</body>
+<script>
+  const btnAdd = document.querySelector(".plus")
+  const btnMin = document.querySelector(".minus")
+  const numCount = document.querySelector(".num-count")
+  const btnReset = document.querySelector(".reset")
+  let starting_count = 0
+
+  numCount.value = starting_count
+
+  function operate(action) {
+    switch (action) {
+      case "add":
+        if(starting_count < 9999) {
+          starting_count++
+          numCount.value = starting_count
+        }
+      break;
+      case "minus":
+        if(starting_count != 0) {
+          starting_count--
+          numCount.value = starting_count
+        }
+      break;
+      case "reset":
+        starting_count = 0
+        numCount.value = starting_count
+      break;
+      default:
+        break;
+    }
+  }
+  btnMin.addEventListener("click", () => {
+    operate("minus")
+  })
+  btnAdd.addEventListener("click", () => {
+    operate("add")
+  })
+  btnReset.addEventListener("click", () => {
+    operate("reset")
+  })
+  document.addEventListener("keydown", event => {
+    if (event.isComposing || event.code == "Minus") {
+      operate("minus")
+    }
+    else if(event.isComposing || event.code == "Equal") {
+      operate("add")
+    }
+    else if(event.isComposing || event.code == "Digit0") {
+      operate("reset")
+    }
+  });
+</script>
+</html>
